@@ -13,11 +13,11 @@ function createImgGallery(galleryItems) {
     .map(({ preview, original, description }) => {
       return `
     <div class="gallery__item">
-    <a class="gallery__link" href="${original}">
+    <a class="gallery__link" href="${original}" >
       <img
         class="gallery__image"
         src="${preview}"
-        data-source="${original}"
+        data-source="${original}" 
         alt="${description}"
       />
     </a>
@@ -28,13 +28,12 @@ function createImgGallery(galleryItems) {
 }
 
 function onGalleryCatchClick(e) {
-  console.log(e.target);
+  e.preventDefault();
+  if (e.target.nodeName !== 'IMG') {
+    return;
+  }
+  console.log(e.target.dataset.source);
 }
+
 //-----------//
 console.log(galleryItems);
-
-// https://youtu.be/pNxBoxbnTVA?t=4188
-
-// https://youtu.be/kxwN7eXBNDQ?t=3693
-
-// *https://youtu.be/kxwN7eXBNDQ?t=4928
