@@ -5,6 +5,7 @@ const galleryImagesEl = document.querySelector('div.gallery');
 const galleryMarkup = createImgGallery(galleryItems);
 let imageSource = '';
 
+let isActivModal = '';
 galleryImagesEl.insertAdjacentHTML('beforeend', galleryMarkup);
 galleryImagesEl.addEventListener('click', onGalleryCatchClick);
 
@@ -37,7 +38,7 @@ function onGalleryCatchClick(e) {
   // console.log(imageSource);
 }
 
-document.querySelector('div.gallery').onclick = () => {
+galleryImagesEl.onclick = () => {
   basicLightbox
     .create(
       `
@@ -45,24 +46,28 @@ document.querySelector('div.gallery').onclick = () => {
     src="${imageSource}">
 	`
     )
-    .show();
+    .show(() => console.log('Модалка basicLightbox відкрита'));
 
-  const modEl = document.querySelector('.basicLightbox');
-  console.log(modEl);
-  console.log('Модалка відкрита');
-
+  isActivModal = document.querySelector('.basicLightbox');
   window.addEventListener('keydown', onEscKeyPress);
+
+  console.log(isActivModal);
+  // console.log('Модалка відкрита');
 };
 
-//=====// солянка
-
-// є модалка - є клас, потрібно при натискані еск, просто знімати клас і модалка зникне.
-// повернутись, спробувати реалізувати
+function closeModal() {
+  window.removeEventListener('keydown', onEscKeyPress);
+}
 
 function onEscKeyPress(e) {
-  console.log('Стукаю по кнопочках!');
+  if (e.code === 'Escape') {
+    console.log('Code key:', e.code);
+    // console.log('Стукаю по кнопочках!');
+    // galleryImagesEl.onclick = () => {
+    //   basicLightbox.close(() => console.log('лайтбокс більше не видно'));
+    // };
+    closeModal();
+  }
 }
-//====//
 
-//-----------//
 console.log(galleryItems);
