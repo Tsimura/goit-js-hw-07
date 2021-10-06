@@ -3,10 +3,9 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryImagesEl = document.querySelector('div.gallery');
 const galleryMarkup = createImgGallery(galleryItems);
-let imageSouce = '';
+let imageSource = '';
 
 galleryImagesEl.insertAdjacentHTML('beforeend', galleryMarkup);
-
 galleryImagesEl.addEventListener('click', onGalleryCatchClick);
 
 function createImgGallery(galleryItems) {
@@ -33,9 +32,9 @@ function onGalleryCatchClick(e) {
   if (e.target.nodeName !== 'IMG') {
     return;
   }
-  imageSouce = e.target.dataset.source;
+  imageSource = e.target.dataset.source;
   // console.log(e.target);
-  // console.log(imageSouce);
+  // console.log(imageSource);
 }
 
 document.querySelector('div.gallery').onclick = () => {
@@ -43,11 +42,27 @@ document.querySelector('div.gallery').onclick = () => {
     .create(
       `
 		<img width="1400" height="900"
-    src="${imageSouce}">
+    src="${imageSource}">
 	`
     )
     .show();
+
+  const modEl = document.querySelector('.basicLightbox');
+  console.log(modEl);
+  console.log('Модалка відкрита');
+
+  window.addEventListener('keydown', onEscKeyPress);
 };
+
+//=====// солянка
+
+// є модалка - є клас, потрібно при натискані еск, просто знімати клас і модалка зникне.
+// повернутись, спробувати реалізувати
+
+function onEscKeyPress(e) {
+  console.log('Стукаю по кнопочках!');
+}
+//====//
 
 //-----------//
 console.log(galleryItems);
