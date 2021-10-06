@@ -32,6 +32,7 @@ function onGalleryCatchClick(e) {
   if (e.target.nodeName !== 'IMG') {
     return;
   }
+  console.log(e.target);
   console.log(e.target.dataset.source);
 }
 
