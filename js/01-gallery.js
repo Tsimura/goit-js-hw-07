@@ -3,6 +3,7 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryImagesEl = document.querySelector('div.gallery');
 const galleryMarkup = createImgGallery(galleryItems);
+let imageSouce = '';
 
 galleryImagesEl.insertAdjacentHTML('beforeend', galleryMarkup);
 
@@ -32,9 +33,21 @@ function onGalleryCatchClick(e) {
   if (e.target.nodeName !== 'IMG') {
     return;
   }
-  console.log(e.target);
-  console.log(e.target.dataset.source);
+  imageSouce = e.target.dataset.source;
+  // console.log(e.target);
+  // console.log(imageSouce);
 }
+
+document.querySelector('div.gallery').onclick = () => {
+  basicLightbox
+    .create(
+      `
+		<img width="1400" height="900"
+    src="${imageSouce}">
+	`
+    )
+    .show();
+};
 
 //-----------//
 console.log(galleryItems);
