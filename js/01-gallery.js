@@ -4,8 +4,9 @@ import { galleryItems } from './gallery-items.js';
 const galleryImagesEl = document.querySelector('div.gallery');
 const galleryMarkup = createImgGallery(galleryItems);
 let imageSource = '';
-
 let isActivModal = '';
+let createModalWindow = '';
+
 galleryImagesEl.insertAdjacentHTML('beforeend', galleryMarkup);
 galleryImagesEl.addEventListener('click', onGalleryCatchClick);
 
@@ -34,25 +35,21 @@ function onGalleryCatchClick(e) {
     return;
   }
   imageSource = e.target.dataset.source;
-  // console.log(e.target);
-  // console.log(imageSource);
 }
 
 galleryImagesEl.onclick = () => {
-  basicLightbox
-    .create(
-      `
+  createModalWindow = basicLightbox.create(
+    `
 		<img width="1400" height="900"
     src="${imageSource}">
 	`
-    )
-    .show(() => console.log('Модалка basicLightbox відкрита'));
+  );
+  createModalWindow.show(() => console.log('Модалка basicLightbox відкрита'));
 
   isActivModal = document.querySelector('.basicLightbox');
   window.addEventListener('keydown', onEscKeyPress);
 
-  console.log(isActivModal);
-  // console.log('Модалка відкрита');
+  // console.log(isActivModal);
 };
 
 function closeModal() {
@@ -61,11 +58,8 @@ function closeModal() {
 
 function onEscKeyPress(e) {
   if (e.code === 'Escape') {
-    console.log('Code key:', e.code);
-    // console.log('Стукаю по кнопочках!');
-    // galleryImagesEl.onclick = () => {
-    //   basicLightbox.close(() => console.log('лайтбокс більше не видно'));
-    // };
+    // console.log('Code key:', e.code);
+    createModalWindow.close(() => console.log('Модалка basicLightbox закрита'));
     closeModal();
   }
 }
